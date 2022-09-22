@@ -1,6 +1,11 @@
+// API Keys
+const apiKey = 'aef8ff579a371781a816a273903f8295'; //api key for the first call to get lat lon
+const apiKey2 = '3e577ad9e250c4dd28d83578156049cc'; //api key for the second call to get weather
 
+// Links to API
+let CityQueryURL = "http://api.openweathermap.org/geo/1.0/direct?q=perth&limit=1&appid=" + apiKey;
+let weatherData = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=" + apiKey2;
 
-const apiKey = 'byoapikey';
 
 function getSearchedCities() {
     return JSON.parse(localStorage.getItem('cities')) || [];
@@ -18,7 +23,7 @@ function getWeatherApi(city) {
 
     // call the current API to get the lon and lat then call One Call API to get the rest of the info
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=${city]&appid=${apiKey}')
+    fetch(CityQueryURL)
         .then(function (response) {
             return response.json()
         })
@@ -33,7 +38,7 @@ function getWeatherApi(city) {
 
         .then(function (result) {
             // call the oneCall API to get the info we need 
-            return fetch('https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}')
+            return fetch(weatherData)
         })
 
         .then(function (result) {
@@ -41,8 +46,6 @@ function getWeatherApi(city) {
             return result.json();
         });
 }
-
-
 
 function showWeather(city) {
 
@@ -58,14 +61,9 @@ function showWeather(city) {
 }
 
 
-// one call API: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-
 // by calling
 showWeather();
 
-// if the city is valid
 // add the city to the history
 
-
-// add the city to the sidebar list
 
